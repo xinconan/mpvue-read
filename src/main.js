@@ -27,6 +27,11 @@ export default {
         selectedIconPath: 'static/img/books-active.png',
         text: '图书'
       }, {
+        pagePath: 'pages/comment/main',
+        iconPath: 'static/img/comment.png',
+        selectedIconPath: 'static/img/comment-active.png',
+        text: '评论'
+      }, {
         pagePath: 'pages/user/main',
         iconPath: 'static/img/me.png',
         selectedIconPath: 'static/img/me-active.png',
