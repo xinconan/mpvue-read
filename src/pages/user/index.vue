@@ -8,6 +8,8 @@
     </div>
 
     <YearProgress></YearProgress>
+
+    <button type="primary" @click="scan">扫码添加图书</button>
   </div>
 </template>
 
@@ -32,6 +34,20 @@ export default {
     //   passCent
     // }
   },
+  methods: {
+    scan () {
+      wx.scanCode({
+        scanType: ['qrCode'],
+        success: (res) => {
+          console.log(res)
+          wx.showModal({
+            showCancel: false,
+            content: res.result
+          })
+        }
+      })
+    }
+  },
 
   created () {
   }
@@ -42,6 +58,10 @@ export default {
 .user-container{
   text-align: center;
   padding: 50rpx 30rpx;
+
+  button{
+    margin-top: 30rpx;
+  }
 }
 .avatar-wrapper{
   display: flex;
