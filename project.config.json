@@ -11,6 +11,7 @@
 	"compileType": "miniprogram",
 	"appid": "wxf504fc69ecd85899",
 	"projectname": "mpvue-read",
+	"qcloudRoot":"./server/",
 	"condition": {
 		"search": {
 			"current": -1,
