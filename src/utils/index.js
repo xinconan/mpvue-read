@@ -27,6 +27,13 @@ const request = (url, method, data, header = {}) => {
         if (res.data.code === 0) {
           resolve(res.data.data)
         } else {
+          let msg = res.data.data && res.data.data.msg
+          if (msg) {
+            wx.showToast({
+              icon: 'none',
+              title: msg
+            })
+          }
           reject(res.data)
         }
       }

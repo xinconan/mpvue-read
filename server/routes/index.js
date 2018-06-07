@@ -2,7 +2,7 @@
  * ajax 服务路由集合
  */
 const router = require('koa-router')({
-    prefix: '/weapp'
+  prefix: '/weapp'
 })
 const controllers = require('../controllers')
 
@@ -26,6 +26,6 @@ router.get('/tunnel', controllers.tunnel.get)
 // POST 用来处理信道传递过来的消息
 router.post('/tunnel', controllers.tunnel.post)
 
-router.get('/book/add', controllers.book.add)
+router.post('/book/add', controllers.book.add)
 
 module.exports = router
