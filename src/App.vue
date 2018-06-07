@@ -1,7 +1,9 @@
 <script>
+import qcloud from 'wafer2-client-sdk'
+import config from './config'
 export default {
   created () {
-  
+    qcloud.setLoginUrl(config.loginUrl)
   }
 }
 </script>
