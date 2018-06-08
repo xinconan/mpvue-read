@@ -27,5 +27,6 @@ router.get('/tunnel', controllers.tunnel.get)
 router.post('/tunnel', controllers.tunnel.post)
 
 router.post('/book/add', controllers.book.add)
+router.get('/book/list', controllers.book.list)
 
 module.exports = router

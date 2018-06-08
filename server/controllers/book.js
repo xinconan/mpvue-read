@@ -60,6 +60,23 @@ module.exports = {
         }
       }
     }
+  },
+  list: async (ctx) => {
+    // const {page, size} = ctx.request.query
+    const books = await mysql('books').select()
+      // .select('books.*', 'cSessionInfo.user_info')
+    console.log(books)
+    ctx.state.data = {
+      list: books
+      // list: books.map(v => {
+      //   const info = JSON.parse(v.user_info)
+      //   return Object.assign({}, v, {
+      //     user_info: {
+      //       nickName: info.nickName
+      //     }
+      //   })
+      // })
+    }
   }
 }
 
