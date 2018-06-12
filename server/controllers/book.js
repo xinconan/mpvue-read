@@ -62,15 +62,15 @@ module.exports = {
     }
   },
   list: async (ctx) => {
-    // const {page} = ctx.request.query
+    const {page} = ctx.request.query
     const size = 10
     const books = await mysql('books')
                   .select('books.*', 'cSessionInfo.user_info')
                   .join('cSessionInfo', 'books.openId', 'cSessionInfo.open_id')
                   .limit(size)
-                  // .offset()
+                  .offset(Number(page) * size)
                   .orderBy('books.id', 'desc')
-    console.log(books)
+    // console.log(books)
     ctx.state.data = {
       // list: books
       list: books.map(v => {

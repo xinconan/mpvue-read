@@ -6,6 +6,7 @@ app.$mount()
 
 export default {
   config: {
-    navigationBarTitleText: '书知'
+    navigationBarTitleText: '书知',
+    enablePullDownRefresh: true
   }
 }
