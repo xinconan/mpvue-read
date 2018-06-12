@@ -8,21 +8,20 @@ export default {
 }
 </script>
 
-<style>
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-}
+<style lang="scss">
 .flex{
   display: flex;
   align-items: center;
+
+  &.between{
+    justify-content: space-between;
+  }
 }
+
 .flex-item{
   flex: 1;
+}
+.text-red{
+  color: #F15A4A;
 }
 </style>

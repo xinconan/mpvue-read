@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <Card v-for="item in [1,2,3]" :key="item"></Card>
+    <Card v-for="item in books" :key="item.id" :book="item"></Card>
   </div>
 </template>
 
 <script>
+import utils from '@/utils/index'
 import Card from "@/components/card.vue"
 export default {
   data () {
     return {
-      userInfo: {}
+      books: [],
+      page: 0
     }
   },
 
@@ -18,10 +20,16 @@ export default {
   },
 
   methods: {
+    async getList (init) {
+      wx.showNavigationBarLoading();
+      const books = await utils.get('/weapp/book/list', {page: this.page})
+      this.books = books.list
+      wx.hideNavigationBarLoading();
+    }
   },
 
-  created () {
-    // 调用应用实例的方法获取全局数据
+  mounted () {
+    this.getList()
   }
 }
 </script>
