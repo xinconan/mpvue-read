@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <TopSwiper :tops="topList" />
     <Card v-for="item in books" :key="item.id" :book="item"></Card>
     <p class="no-data" v-if="!hasNext">亲，就这么多了</p>
   </div>
@@ -8,17 +9,20 @@
 <script>
 import utils from '@/utils/index'
 import Card from "@/components/card.vue"
+import TopSwiper from '@/components/TopSwiper.vue'
 export default {
   data () {
     return {
       books: [],
+      topList: [], // top9
       page: 0,
       hasNext: true // 是否有下一页
     }
   },
 
   components: {
-    Card
+    Card,
+    TopSwiper
   },
 
   methods: {
@@ -40,10 +44,15 @@ export default {
         this.books = this.books.concat(books.list)
       }
       wx.hideNavigationBarLoading();
+    },
+    async getTop () {
+      const top = await utils.get('/weapp/book/top')
+      this.topList = top.list
     }
   },
   onPullDownRefresh() {
     this.getList(true)
+    this.getTop()
   },
   onReachBottom() {
     if (!this.hasNext) {
@@ -56,6 +65,7 @@ export default {
 
   mounted () {
     this.getList(true)
+    this.getTop()
   }
 }
 </script>

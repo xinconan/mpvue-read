@@ -25,8 +25,13 @@ router.post('/upload', controllers.upload)
 router.get('/tunnel', controllers.tunnel.get)
 // POST 用来处理信道传递过来的消息
 router.post('/tunnel', controllers.tunnel.post)
-
+// 添加图书
 router.post('/book/add', controllers.book.add)
+// 图书列表
 router.get('/book/list', controllers.book.list)
+// 图书详情
+router.get('/book/detail', controllers.book.detail)
+// top 9图书列表
+router.get('/book/top', controllers.book.top)
 
 module.exports = router

@@ -1,23 +1,25 @@
 <template>
-  <div class="book-card flex">
-    <img :src="book.image" alt="">
-    <div class="flex-item">
-      <div class="flex between">
-        <div class="text-red flex-item">{{book.title}}</div>
-        <div class="rate">
-          <Star :value="book.rate"/> {{book.rate}}
+  <a :href="detailUrl">
+    <div class="book-card flex">
+      <img :src="book.image" alt="">
+      <div class="flex-item">
+        <div class="flex between">
+          <div class="text-red flex-item">{{book.title}}</div>
+          <div class="rate">
+            <Star :value="book.rate"/> {{book.rate}}
+          </div>
+        </div>
+        <div class="flex between">
+          <div class="text-author">{{book.author}}</div>
+          <div class="text-red">浏览：{{book.count}}</div>
+        </div>
+        <div class="flex between">
+          <div>{{book.publisher}}</div>
+          <div>{{book.user_info.nickName}}</div>
         </div>
       </div>
-      <div class="flex between">
-        <div class="text-author">{{book.author}}</div>
-        <div class="text-red">浏览：{{book.count}}</div>
-      </div>
-      <div class="flex between">
-        <div>{{book.publisher}}</div>
-        <div>{{book.user_info.nickName}}</div>
-      </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -26,7 +28,12 @@ export default {
   components: {
     Star
   },
-  props: ['book']
+  props: ['book'],
+  computed: {
+    detailUrl () {
+      return `/pages/detail/main?id=${this.book.id}`
+    }
+  }
 }
 </script>
 

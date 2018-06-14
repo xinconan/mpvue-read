@@ -2,6 +2,16 @@ const https = require('https')
 const {mysql} = require('../qcloud')
 
 module.exports = {
+  top: async (ctx) => {
+    // 访问最多的9条数据
+    const top = await mysql('books')
+                .select('id', 'title', 'image', 'count')
+                .orderBy('count', 'desc')
+                .limit(9)
+    ctx.state.data = {
+      list: top
+    }
+  },
   add: async (ctx) => {
     console.log(ctx.request.body)
     const {isbn, openId} = ctx.request.body
@@ -82,6 +92,36 @@ module.exports = {
         })
       })
     }
+  },
+  detail: async (ctx) => {
+    const {id} = ctx.request.query
+    if (!id) {
+      ctx.state = {
+        code: -1,
+        data: {
+          msg: '缺少必要参数'
+        }
+      }
+      return
+    }
+    const detail = await mysql('books')
+                    .select('books.*', 'cSessionInfo.user_info')
+                    .join('cSessionInfo', 'books.openid', 'cSessionInfo.open_id')
+                    .where('id', id)
+                    .first()
+    const info = JSON.parse(detail.user_info)
+    ctx.state.data = Object.assign({}, detail, {
+      tags: detail.tags.split(','),
+      summary: detail.summary.split('\n'),
+      user_info: {
+        name: info.nickName,
+        image: info.avatarUrl
+      }
+    })
+    // 每请求一次，统计一次
+    await mysql('books')
+          .where('id', id)
+          .increment('count', 1)
   }
 }
 
