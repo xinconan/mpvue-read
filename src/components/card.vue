@@ -1,7 +1,7 @@
 <template>
   <a :href="detailUrl">
     <div class="book-card flex">
-      <img :src="book.image" alt="">
+      <img :src="book.image" alt="" mode="aspectFit">
       <div class="flex-item">
         <div class="flex between">
           <div class="text-red flex-item">{{book.title}}</div>

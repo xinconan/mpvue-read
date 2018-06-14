@@ -72,15 +72,20 @@ module.exports = {
     }
   },
   list: async (ctx) => {
-    const {page} = ctx.request.query
+    const {page, openid} = ctx.request.query
     const size = 10
-    const books = await mysql('books')
+    const bookSql = mysql('books')
                   .select('books.*', 'cSessionInfo.user_info')
                   .join('cSessionInfo', 'books.openId', 'cSessionInfo.open_id')
-                  .limit(size)
-                  .offset(Number(page) * size)
                   .orderBy('books.id', 'desc')
     // console.log(books)
+    let books
+    if (openid) {
+      // 根据openid过滤
+      books = await bookSql.where('books.openId', openid)
+    } else {
+      books = await bookSql.limit(size).offset(Number(page) * size)
+    }
     ctx.state.data = {
       // list: books
       list: books.map(v => {

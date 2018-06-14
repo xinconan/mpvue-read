@@ -1,40 +1,52 @@
 <template>
-  <div class="counter-warp">
-    评价页面
+  <div class="comment-wrapper">
+    <div v-if="userInfo.openId">
+      <div class="title">我添加的图书</div>
+      <Card v-for="item in books" :key="item.id" :book="item"></Card>
+    </div>
   </div>
 </template>
 
 <script>
-// Use Vuex
-import store from './store'
-
+import utils from '@/utils/index'
+import Card from '@/components/card.vue'
 export default {
   computed: {
-    count () {
-      return store.state.count
+  },
+  components: {
+    Card
+  },
+  data() {
+    return {
+      userInfo: {},
+      books: []
     }
   },
   methods: {
-    increment () {
-      store.commit('increment')
+    init () {
+      wx.showNavigationBarLoading()
+      this.getBooks()
+      wx.hideNavigationBarLoading()
     },
-    decrement () {
-      store.commit('decrement')
+    async getBooks () {
+      const books = await utils.get('/weapp/book/list', {
+        openid: this.userInfo.openId
+      })
+      this.books = books.list
+    }
+  },
+  onShow() {
+    if (!this.userInfo.openId) {
+      const userInfo = wx.getStorageSync('userInfo')
+      if (userInfo) {
+        this.userInfo = userInfo
+        this.init()
+      }
     }
   }
 }
 </script>
 
 <style>
-.counter-warp {
-  text-align: center;
-  margin-top: 100px;
-}
-.home {
-  display: inline-block;
-  margin: 100px auto;
-  padding: 5px 10px;
-  color: blue;
-  border: 1px solid blue;
-}
+
 </style>
