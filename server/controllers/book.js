@@ -89,6 +89,7 @@ module.exports = {
     ctx.state.data = {
       // list: books
       list: books.map(v => {
+        delete v.openid   // remove openid
         const info = JSON.parse(v.user_info)
         return Object.assign({}, v, {
           user_info: {
