@@ -7,8 +7,8 @@
       <p>{{userInfo.nickName}}</p>
     </div>
 
-    <!-- <button v-if="!logged" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">登录</button> -->
-    <button v-if="!logged"  @click="login">登录</button>
+    <button v-if="!logged" open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">登录</button>
+    <!-- <button v-if="!logged"  @click="login">登录</button> -->
 
     <YearProgress></YearProgress>
 
@@ -66,53 +66,49 @@ export default {
         success: (res) => {
           if (res.authSetting['scope.userInfo']) {
             // 检查登录是否过期
-            wx.checkSession({
-              success: () => {
-                // 登录态未过期
-                this.userInfo = userInfo
-                this.logged = true
-                // that.setData({
-                //   userInfo: userInfo,
-                //   logged: true
-                // })
-              },
+            // wx.checkSession({
+            //   success: () => {
+            //     // 登录态未过期
+            //     this.userInfo = userInfo
+            //     this.logged = true
+            //     // that.setData({
+            //     //   userInfo: userInfo,
+            //     //   logged: true
+            //     // })
+            //   },
 
-              fail: () => {
-                qcloud.clearSession()
-                // 登录态已过期，需重新登录
-                const options = {
-                  encryptedData: mp.encryptedData,
-                  iv: mp.iv,
-                  userInfo: userInfo
-                }
-                this.doLogin(options)
-              }
-            })
+            //   fail: () => {
+            //     qcloud.clearSession()
+            //     // 登录态已过期，需重新登录
+            //     const options = {
+            //       encryptedData: mp.encryptedData,
+            //       iv: mp.iv,
+            //       userInfo: userInfo
+            //     }
+            //     this.doLogin(options)
+            //   }
+            // })
+            // const options = {
+            //   encryptedData: mp.encryptedData,
+            //   iv: mp.iv,
+            //   userInfo: userInfo
+            // }
+            // this.doLogin(options)
+            this.login()
+            // qcloud.login({
+            //   success: res => {
+            //     console.log(res)
+            //     this.userInfo = res
+            //     this.logged = true
+            //     utils.showSuccess('登录成功')
+            //   },
+            //   fail: err => {
+            //     console.error(err)
+            //   }
+            // })
           } else {
             utils.showModal('用户未授权', JSON.stringify(mp.errMsg))
           }
-        }
-      })
-    },
-    doLogin (options) {
-      wx.login({
-        success: (loginResult) => {
-          const loginParams = {
-            code: loginResult.code,
-            encryptedData: options.encryptedData,
-            iv: options.iv
-          }
-          qcloud.requestLogin({
-            loginParams,
-            success () {
-              utils.showSuccess('登录成功')
-              this.userInfo = options.userInfo
-              this.logged = true
-            }
-          })
-        },
-        fail: (err) => {
-          utils.showModal('登录失败', JSON.stringify(err))
         }
       })
     },
