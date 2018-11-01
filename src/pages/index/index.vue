@@ -8,7 +8,7 @@
 
 <script>
 import utils from '@/utils/index'
-import Card from "@/components/card.vue"
+import Card from '@/components/card.vue'
 import TopSwiper from '@/components/TopSwiper.vue'
 export default {
   data () {
@@ -31,7 +31,7 @@ export default {
         this.page = 0
         this.hasNext = true
       }
-      wx.showNavigationBarLoading();
+      wx.showNavigationBarLoading()
       const books = await utils.get('/weapp/book/list', {page: this.page})
       if (books.list.length < 10 && this.page > 0) {
         this.hasNext = false
@@ -39,11 +39,11 @@ export default {
       if (init) {
         this.books = books.list
         wx.stopPullDownRefresh()
-      } else{
+      } else {
         // 下拉刷新
         this.books = this.books.concat(books.list)
       }
-      wx.hideNavigationBarLoading();
+      wx.hideNavigationBarLoading()
     },
     async getTop () {
       const top = await utils.get('/weapp/book/top')
@@ -57,7 +57,7 @@ export default {
   onReachBottom() {
     if (!this.hasNext) {
       // 没有更多了
-      return;
+      return
     }
     this.page += 1
     this.getList()

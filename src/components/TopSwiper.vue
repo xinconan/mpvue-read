@@ -29,7 +29,7 @@ export default {
       let res = this.tops || []
       // 最多只显示9条数据
       if (res.length > 9) {
-        res = res.slice(0,9)
+        res = res.slice(0, 9)
       }
       return this.chunk(res, 3)
     }

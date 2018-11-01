@@ -20,7 +20,7 @@
 import YearProgress from '@/components/yearProgress.vue'
 import qcloud from 'wafer2-client-sdk'
 import utils from '@/utils/index'
-import config from '../../config';
+import config from '../../config'
 export default {
   components: {
     YearProgress
@@ -60,7 +60,7 @@ export default {
     onGotUserInfo (e) {
       const mp = e.mp.detail
       console.log(mp)
-      const userInfo = mp.userInfo
+      // const userInfo = mp.userInfo
       // 查看是否授权
       wx.getSetting({
         success: (res) => {
