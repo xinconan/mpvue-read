@@ -15,7 +15,7 @@ export default {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarTitleText: '书知',
       navigationBarTextStyle: 'black'
     },
     tabBar: {
@@ -28,9 +28,9 @@ export default {
         text: '图书'
       }, {
         pagePath: 'pages/comment/main',
-        iconPath: 'static/img/comment.png',
-        selectedIconPath: 'static/img/comment-active.png',
-        text: '评论'
+        iconPath: 'static/img/shelf.png',
+        selectedIconPath: 'static/img/shelf-active.png',
+        text: '书架'
       }, {
         pagePath: 'pages/user/main',
         iconPath: 'static/img/me.png',
